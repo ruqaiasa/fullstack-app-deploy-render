@@ -1,6 +1,9 @@
 import { MessageListDto } from "../dto/MessageListDto";
 
 const MessageList = ({ messages, eraseFunct }: MessageListDto) => {
+  // Banc d'essai SmartDeploy : erreur de type volontaire
+  const total: number = "aucun message";
+  console.log(total);
   return (
     <section className="messageSection">
       <h1>Messages</h1>
