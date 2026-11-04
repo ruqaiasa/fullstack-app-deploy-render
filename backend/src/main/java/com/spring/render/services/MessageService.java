@@ -33,4 +33,8 @@ public class MessageService {
         messageRepository.deleteById(UUID.fromString(messageId));
     }
 
+    // Banc d'essai SmartDeploy : erreur de compilation volontaire
+    public int panneCompilation() {
+        return "pas un entier"
+    }
 }
