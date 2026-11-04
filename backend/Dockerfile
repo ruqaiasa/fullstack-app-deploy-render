@@ -25,4 +25,4 @@ USER app
 
 EXPOSE 8080
 # La JVM adapte sa mémoire à la limite du conteneur.
-ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-Xmx256m", "-XX:+ExitOnOutOfMemoryError", "-jar", "/app/app.jar"]
