@@ -26,6 +26,11 @@ public class MessageController {
 
     @GetMapping("/allmessages")
     public ResponseEntity<List<MessageModel>> getAllMessages() {
+        // Banc d'essai SmartDeploy : panne simulée, l'API répond en erreur 500
+        // 60 secondes après le démarrage, alors que les pods restent sains.
+        if (java.lang.management.ManagementFactory.getRuntimeMXBean().getUptime() > 60_000) {
+            throw new IllegalStateException("Panne simulée : API défaillante (banc d'essai SmartDeploy)");
+        }
         var messageList = messageService.allMessages();
 
         return ResponseEntity.ok().body(messageList);
