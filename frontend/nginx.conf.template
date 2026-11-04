@@ -1,0 +1,37 @@
+# Généré au démarrage : ${BACKEND_URL} est remplacé par sa valeur.
+server {
+    listen 8080;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # API : relayée vers le backend, préfixe /api retiré.
+    location /api/ {
+        proxy_pass ${BACKEND_URL}/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 30s;
+    }
+
+    # Fichiers statiques versionnés : mise en cache longue.
+    location /assets/ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+        # Un add_header local annule ceux du serveur : on les répète ici.
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-Frame-Options "DENY" always;
+    }
+
+    # Application monopage : toute autre route renvoie index.html.
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # En-têtes de sécurité de base.
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+}
