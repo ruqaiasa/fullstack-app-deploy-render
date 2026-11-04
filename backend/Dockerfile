@@ -12,7 +12,7 @@ COPY .mvn .mvn
 COPY mvnw pom.xml ./
 RUN chmod +x mvnw && ./mvnw -B -q dependency:go-offline
 
-COPY src src
+COPYY src src
 RUN ./mvnw -B -q package -DskipTests \
  && cp target/*.jar app.jar
 
