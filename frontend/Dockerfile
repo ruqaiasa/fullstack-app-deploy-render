@@ -17,7 +17,7 @@ ARG VITE_POST_MESSAGES_URL=/api/sendmessage
 ARG VITE_DELETE_MESSAGES_URL=/api/deletemessage
 RUN npm run build
 
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginxinc/nginx-unprivileged:1.29-alpine
 
 # Adresse du backend dans le cluster (Service Kubernetes généré par SmartDeploy).
 ENV BACKEND_URL=http://fullstack-demo-backend-service:8080
